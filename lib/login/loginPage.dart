@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:absen_app/config/app_color.dart';
 import 'package:absen_app/page/HomePage.dart';
 import 'package:absen_app/model/LogPresensiModel.dart';
-import 'package:absen_app/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as myHttp;
