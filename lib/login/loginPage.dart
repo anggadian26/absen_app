@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:absen_app/config/app_color.dart';
-import 'package:absen_app/home/HomePage.dart';
+import 'package:absen_app/page/HomePage.dart';
 import 'package:absen_app/model/LogPresensiModel.dart';
 import 'package:absen_app/splashScreen.dart';
 import 'package:flutter/material.dart';
@@ -50,22 +50,6 @@ class _loginPageState extends State<loginPage> {
       });
     }
   }
-
-
-  // checkToken(token, name) async {
-  //   print(token);
-  //   String tokenStr = await token;
-  //   String nameStr = await name;
-  //   if (tokenStr != "" && nameStr != "") {
-  //     Future.delayed(Duration(seconds: 1), () async {
-  //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (context) => HomePage()))
-  //           .then((value) {
-  //         setState(() {});
-  //       });
-  //     });
-  //   }
-  // }
 
   Future Login(email, password) async {
     LoginPressensiModel? loginPresensiModel;
