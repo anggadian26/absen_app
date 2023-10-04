@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:absen_app/config/app_color.dart';
-import 'package:absen_app/home/HomePage.dart';
+import 'package:absen_app/page/HomePage.dart';
+import 'package:absen_app/model/LogPresensiModel.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as myHttp;
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -10,6 +15,79 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  late Future<String> _name, _token;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _token = _prefs.then((SharedPreferences prefs) {
+      return prefs.getString("token") ?? "";
+    });
+
+    _name = _prefs.then((SharedPreferences prefs) {
+      return prefs.getString("name") ?? "";
+    });
+    checkToken(_token, _name);
+  }
+
+  checkToken(token, name) async {
+    String tokenStr = await token;
+    String nameStr = await name;
+    print(tokenStr);
+    print(nameStr);
+    if (tokenStr != "" && nameStr != "") {
+      Future.delayed(Duration(seconds: 1), () async {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => HomePage()))
+            .then((value) {
+          setState(() {});
+        });
+      });
+    }
+  }
+
+  Future Login(email, password) async {
+    LoginPressensiModel? loginPresensiModel;
+    Map<String, String> body = {"email": email, "password": password};
+    final header = {'Accept': 'application/json'};
+
+    var response = await myHttp.post(
+        Uri.parse('http://10.0.2.2:8000/api/login'),
+        body: body,
+        headers: header);
+
+    if (response.statusCode == 422) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Email dan Password yang anda berikan salah")));
+    } else {
+      loginPresensiModel =
+          LoginPressensiModel.fromJson(json.decode(response.body));
+      saveUser(loginPresensiModel.data.token, loginPresensiModel.data.name);
+      print("Response : " + response.body);
+    }
+  }
+
+  Future saveUser(token, name) async {
+    try {
+      final SharedPreferences prefs = await _prefs;
+      prefs.setString("name", name);
+      prefs.setString("token", token);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HomePage()))
+          .then((value) {
+        setState(() {});
+      });
+    } catch (err) {
+      print("ERROR" + err.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(err.toString())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +115,7 @@ class _loginPageState extends State<loginPage> {
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(12)),
                   child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.email_outlined),
@@ -57,6 +136,7 @@ class _loginPageState extends State<loginPage> {
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(12)),
                   child: TextField(
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -75,8 +155,9 @@ class _loginPageState extends State<loginPage> {
                 child: InkWell(
                   onTap: () {
                     // masuk login
-                    print("hallo guys ini sudah bisa");
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                    // print("hallo guys ini sudah bisa");
+                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                    Login(emailController.text, passwordController.text);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(15),
