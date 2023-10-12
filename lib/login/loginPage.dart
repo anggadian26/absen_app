@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:absen_app/config/app_color.dart';
-import 'package:absen_app/page/HomePage.dart';
+import 'package:absen_app/config/bar_navigation.dart';
+// import 'package:absen_app/page/HomePage.dart';
 import 'package:absen_app/model/LogPresensiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ class _loginPageState extends State<loginPage> {
     if (tokenStr != "" && nameStr != "") {
       Future.delayed(Duration(seconds: 1), () async {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => HomePage()))
+            .push(MaterialPageRoute(builder: (context) => mainHome()))
             .then((value) {
           setState(() {});
         });
@@ -77,7 +78,7 @@ class _loginPageState extends State<loginPage> {
       prefs.setString("name", name);
       prefs.setString("token", token);
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => HomePage()))
+          .push(MaterialPageRoute(builder: (context) => mainHome()))
           .then((value) {
         setState(() {});
       });
