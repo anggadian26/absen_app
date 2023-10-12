@@ -28,7 +28,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 labelColor: AppColors.primary,
                 unselectedLabelColor: Colors.grey,
                 tabs: [
-                  Tab(text: "Absen" ),
+                  Tab(text: "Presensi" ),
                   Tab(text: "Ijin"),
                   Tab(text: "Sakit"),
                 ],
