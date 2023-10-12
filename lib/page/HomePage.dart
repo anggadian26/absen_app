@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("hallo world"),
+        automaticallyImplyLeading: false,
       ),
     );
   }
