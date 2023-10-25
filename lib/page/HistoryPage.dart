@@ -1,6 +1,7 @@
 import 'package:absen_app/config/app_color.dart';
 import 'package:absen_app/page/tab/IjinTab.dart';
 import 'package:absen_app/page/tab/PresensiTab.dart';
+import 'package:absen_app/page/tab/SakitTab.dart';
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   // Contents for Tab 2
                   IjinTab(),
                   // Contents for Tab 3
-                  Center(child: Text("Content for Tab 3")),
+                  SakitTab()
                 ],
               ),
             ),

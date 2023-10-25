@@ -60,12 +60,10 @@ class _PresensiTabState extends State<PresensiTab> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) => Card(
-                color: Colors
-                    .deepPurple[50], // Warna background purple pudar semi putih
                 elevation: 1, // Tambahkan efek shadow pada card
                 margin: EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
