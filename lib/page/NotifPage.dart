@@ -1,4 +1,5 @@
-import 'package:absen_app/config/app_color.dart';
+import 'package:absen_app/page/menu_page/IjinPage.dart';
+import 'package:absen_app/page/menu_page/PengumuanPage.dart';
 import 'package:flutter/material.dart';
 
 class NotifPage extends StatefulWidget {
@@ -13,17 +14,18 @@ class _NotifPageState extends State<NotifPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("M E N U"),
-        backgroundColor: AppColors.primary,
+        title: Text("M E N U", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.white,
         centerTitle: true,
         automaticallyImplyLeading: false,
+        elevation: 0,
       ),
       body: Container(
         child: Column(
           children: [
             GestureDetector(
               onTap: () {
-                // Tambahkan perintah untuk pindah ke halaman yang diinginkan
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => IjinPage()));
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -55,6 +57,7 @@ class _NotifPageState extends State<NotifPage> {
             GestureDetector(
               onTap: () {
                 // Tambahkan perintah untuk pindah ke halaman yang diinginkan
+               
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -85,7 +88,7 @@ class _NotifPageState extends State<NotifPage> {
             ),
             GestureDetector(
               onTap: () {
-                // Tambahkan perintah untuk pindah ke halaman yang diinginkan
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => PengumumanPage()));
               },
               child: Card(
                 shape: RoundedRectangleBorder(

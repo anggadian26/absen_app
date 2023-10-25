@@ -20,7 +20,7 @@ class LoginPressensiModel {
     });
 
     factory LoginPressensiModel.fromJson(Map<String, dynamic> json) => LoginPressensiModel(
-        success: json["success"],
+        success: json["success"] ?? false,
         message: json["message"],
         data: Data.fromJson(json["data"]),
     );
