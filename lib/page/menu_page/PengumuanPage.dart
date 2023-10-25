@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:absen_app/config/app_color.dart';
 import 'package:absen_app/model/GetPengumumanModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,49 +52,78 @@ class _PengumumanPageState extends State<PengumumanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pengumuman'),
-        backgroundColor: AppColors.primary,
-        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.grey, // Ubah warna ikon di sini
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'Pengumuman',
+          style: TextStyle(color: Colors.grey),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: getPengumumanModel?.data.map((pengumuman) {
-                  return Card(
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            pengumuman.judul,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+          child: getPengumumanModel?.data.isNotEmpty ?? false
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: getPengumumanModel?.data.map((pengumuman) {
+                        return Card(
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  pengumuman.judul,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  pengumuman.tanggalUpload,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  pengumuman.konten,
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            pengumuman.tanggalUpload,
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            pengumuman.konten,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ],
+                        );
+                      }).toList() ??
+                      [],
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/img/notfound.png'),
+                      SizedBox(height: 16),
+                      Text(
+                        "Belum ada pengumuman terbaru",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  );
-                }).toList() ??
-                [],
-          ),
+                    ],
+                  ),
+                ),
         ),
       ),
     );
