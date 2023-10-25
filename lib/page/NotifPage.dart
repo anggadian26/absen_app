@@ -1,5 +1,6 @@
 import 'package:absen_app/page/menu_page/IjinPage.dart';
 import 'package:absen_app/page/menu_page/PengumuanPage.dart';
+import 'package:absen_app/page/menu_page/SakitPage.dart';
 import 'package:flutter/material.dart';
 
 class NotifPage extends StatefulWidget {
@@ -56,8 +57,7 @@ class _NotifPageState extends State<NotifPage> {
             ),
             GestureDetector(
               onTap: () {
-                // Tambahkan perintah untuk pindah ke halaman yang diinginkan
-               
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => SakitPage()));
               },
               child: Card(
                 shape: RoundedRectangleBorder(
