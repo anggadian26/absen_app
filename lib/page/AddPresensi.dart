@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:absen_app/config/app_color.dart';
+import 'package:absen_app/config/bar_navigation.dart';
 import 'package:absen_app/model/SavePresensiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -75,7 +76,11 @@ class _AddPresensiState extends State<AddPresensi> {
     print("Kode Status Respons: ${response.statusCode}");
 
     if (savePresensiModel.success) {
-      Navigator.of(context).pop();
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => mainHome()))
+          .then((value) {
+        setState(() {});
+      });
       print(response.body);
       showDialog(
         context: context,
@@ -173,8 +178,7 @@ class _SuccessAlertDialogState extends State<SuccessAlertDialog> {
   void initState() {
     super.initState();
     // Delay 3 detik dan kemudian kembali ke halaman sebelumnya
-    Future.delayed(Duration(seconds: 1), () {
-      
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pop();
     });
   }

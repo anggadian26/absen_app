@@ -1,4 +1,7 @@
 import 'package:absen_app/config/app_color.dart';
+import 'package:absen_app/page/tab/IjinTab.dart';
+import 'package:absen_app/page/tab/PresensiTab.dart';
+import 'package:absen_app/page/tab/SakitTab.dart';
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -15,10 +18,11 @@ class _HistoryPageState extends State<HistoryPage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("R I W A Y A T"),
-          backgroundColor: AppColors.primary,
+          title: Text("R I W A Y A T", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+          backgroundColor: Colors.white,
           centerTitle: true,
           automaticallyImplyLeading: false,
+          elevation: 0,
         ),
         body: Column(
           children: [
@@ -38,11 +42,11 @@ class _HistoryPageState extends State<HistoryPage> {
               child: TabBarView(
                 children: [
                   // Contents for Tab 1
-                  Center(child: Text("Content for Tab 1")),
+                  PresensiTab(),
                   // Contents for Tab 2
-                  Center(child: Text("Content for Tab 2")),
+                  IjinTab(),
                   // Contents for Tab 3
-                  Center(child: Text("Content for Tab 3")),
+                  SakitTab()
                 ],
               ),
             ),

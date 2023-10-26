@@ -1,26 +1,26 @@
 // To parse this JSON data, do
 //
-//     final loginPressensiModel = loginPressensiModelFromJson(jsonString);
+//     final getUserModel = getUserModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LoginPressensiModel loginPressensiModelFromJson(String str) => LoginPressensiModel.fromJson(json.decode(str));
+GetUserModel getUserModelFromJson(String str) => GetUserModel.fromJson(json.decode(str));
 
-String loginPressensiModelToJson(LoginPressensiModel data) => json.encode(data.toJson());
+String getUserModelToJson(GetUserModel data) => json.encode(data.toJson());
 
-class LoginPressensiModel {
+class GetUserModel {
     bool success;
     String message;
     Data data;
 
-    LoginPressensiModel({
+    GetUserModel({
         required this.success,
         required this.message,
         required this.data,
     });
 
-    factory LoginPressensiModel.fromJson(Map<String, dynamic> json) => LoginPressensiModel(
-        success: json["success"] ?? false,
+    factory GetUserModel.fromJson(Map<String, dynamic> json) => GetUserModel(
+        success: json["success"],
         message: json["message"],
         data: Data.fromJson(json["data"]),
     );
@@ -38,10 +38,9 @@ class Data {
     String username;
     String email;
     dynamic emailVerifiedAt;
+    String role;
     dynamic createdAt;
     dynamic updatedAt;
-    String token;
-    String tokenType;
 
     Data({
         required this.id,
@@ -49,10 +48,9 @@ class Data {
         required this.username,
         required this.email,
         required this.emailVerifiedAt,
+        required this.role,
         required this.createdAt,
         required this.updatedAt,
-        required this.token,
-        required this.tokenType,
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -61,10 +59,9 @@ class Data {
         username: json["username"],
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
+        role: json["role"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        token: json["token"],
-        tokenType: json["token_type"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,9 +70,8 @@ class Data {
         "username": username,
         "email": email,
         "email_verified_at": emailVerifiedAt,
+        "role": role,
         "created_at": createdAt,
         "updated_at": updatedAt,
-        "token": token,
-        "token_type": tokenType,
     };
 }
