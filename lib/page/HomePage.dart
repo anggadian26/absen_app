@@ -34,14 +34,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: SafeArea(
       child: Stack(
-        children: [
+        children: <Widget>[
           ListView(
             children: <Widget>[
               const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
                     Text(
                       'Selamat Datang',
                       textAlign: TextAlign.left,
@@ -50,17 +51,32 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 30,
                           fontWeight: FontWeight.w700),
                     ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 2)),
-                    Text(
-                      'Mercy',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500),
-                    ),
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
+                    Icon(Icons.logout)
                   ],
                 ),
               ),
+              Padding(padding: EdgeInsets.symmetric(vertical:1)),
+              
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.all(8.0)),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                  ),
+                  Text(
+                    'Mercy',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 150)),
+                ],
+              ),
+              Padding(padding: EdgeInsets.all(7)),
               Column(
                 children: <Widget>[
                   Container(
@@ -283,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 50)),
+                                              horizontal: 60)),
                                       Text(
                                         DateFormat.Hm().format(DateTime.now()),
                                         style: const TextStyle(
@@ -305,7 +321,6 @@ class _HomePageState extends State<HomePage> {
                                   )));
                         },
                       )),
-
                 ],
               ),
             ],
