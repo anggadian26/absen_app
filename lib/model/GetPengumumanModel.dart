@@ -10,7 +10,7 @@ String getPengumumanModelToJson(GetPengumumanModel data) => json.encode(data.toJ
 
 class GetPengumumanModel {
     bool success;
-    List<Datum> data;
+    List<Data> data;
     String message;
 
     GetPengumumanModel({
@@ -21,7 +21,7 @@ class GetPengumumanModel {
 
     factory GetPengumumanModel.fromJson(Map<String, dynamic> json) => GetPengumumanModel(
         success: json["success"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
         message: json["message"],
     );
 
@@ -32,7 +32,7 @@ class GetPengumumanModel {
     };
 }
 
-class Datum {
+class Data {
     int id;
     String judul;
     String tanggalUpload;
@@ -41,7 +41,7 @@ class Datum {
     dynamic createdAt;
     dynamic updatedAt;
 
-    Datum({
+    Data({
         required this.id,
         required this.judul,
         required this.tanggalUpload,
@@ -51,7 +51,7 @@ class Datum {
         required this.updatedAt,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         judul: json["judul"],
         tanggalUpload: json["tanggal_upload"],
