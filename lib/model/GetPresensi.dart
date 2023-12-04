@@ -43,6 +43,7 @@ class Datum {
     DateTime createdAt;
     DateTime updatedAt;
     bool isHariIni;
+    DateTime tanggalReal;
 
     Datum({
         required this.id,
@@ -55,6 +56,7 @@ class Datum {
         required this.createdAt,
         required this.updatedAt,
         required this.isHariIni,
+        required this.tanggalReal,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -68,6 +70,7 @@ class Datum {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         isHariIni: json["is_hari_ini"],
+        tanggalReal: DateTime.parse(json["tanggal_real"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -81,5 +84,6 @@ class Datum {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "is_hari_ini": isHariIni,
+        "tanggal_real": "${tanggalReal.year.toString().padLeft(4, '0')}-${tanggalReal.month.toString().padLeft(2, '0')}-${tanggalReal.day.toString().padLeft(2, '0')}",
     };
 }

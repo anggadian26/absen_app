@@ -33,18 +33,53 @@ class _IjinPageState extends State<IjinPage> {
 
   DateTime date = DateTime.now();
 
+  // void selectDatePicker(TextEditingController controller) async {
+  //   DateTime? datePicker = await showDatePicker(
+  //     context: context,
+  //     initialDate: date,
+  //     firstDate: DateTime(1999),
+  //     lastDate: DateTime(2030),
+  //   );
+  //   if (datePicker != null && datePicker != date) {
+  //     setState(() {
+  //       date = datePicker;
+  //       controller.text = DateFormat('yyyy-MM-dd').format(datePicker);
+  //     });
+  //   }
+  // }
   void selectDatePicker(TextEditingController controller) async {
     DateTime? datePicker = await showDatePicker(
       context: context,
       initialDate: date,
-      firstDate: DateTime(1999),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     );
-    if (datePicker != null && datePicker != date) {
+
+    if (datePicker != null &&
+        datePicker.isBefore(DateTime.now().add(Duration(days: 1)))) {
       setState(() {
         date = datePicker;
         controller.text = DateFormat('yyyy-MM-dd').format(datePicker);
       });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Pilih Tanggal Valid'),
+            content: Text(
+                'Anda hanya dapat memilih tanggal hari ini atau setelahnya.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -88,6 +123,7 @@ class _IjinPageState extends State<IjinPage> {
       "time_to": formatTime(jamSelesaiController.text),
       "keterangan": keteranganController.text,
     };
+    
 
     // print(ijinData);
 

@@ -40,6 +40,7 @@ class Datum {
     String timeTo;
     String keterangan;
     int userId;
+    String flg;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -51,6 +52,7 @@ class Datum {
         required this.timeTo,
         required this.keterangan,
         required this.userId,
+        required this.flg,
         required this.createdAt,
         required this.updatedAt,
     });
@@ -63,6 +65,7 @@ class Datum {
         timeTo: json["time_to"],
         keterangan: json["keterangan"],
         userId: json["user_id"],
+        flg: json["flg"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -75,6 +78,7 @@ class Datum {
         "time_to": timeTo,
         "keterangan": keterangan,
         "user_id": userId,
+        "flg": flg,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

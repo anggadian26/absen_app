@@ -53,6 +53,7 @@ class _PresensiTabState extends State<PresensiTab> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Datum>>(
@@ -127,23 +128,23 @@ class _PresensiTabState extends State<PresensiTab> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/img/datanotfound.png',width: 300),
-                  SizedBox(height: 16),
-                  Text(
-                    "Belum ada data ijin",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/img/datanotfound.png', width: 300),
+                SizedBox(height: 16),
+                Text(
+                  "Belum ada data ijin",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
                   ),
-                ],
-              ),
-            );
-          } 
+                ),
+              ],
+            ),
+          );
+        }
         // Loading indicator
         return Center(child: CircularProgressIndicator());
       },

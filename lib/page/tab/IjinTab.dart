@@ -25,14 +25,11 @@ class _IjinTabState extends State<IjinTab> {
   }
 
   Future<List<Datum>> fetchData() async {
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:8000/api/get-ijin'),
-        headers: {
-          'Accept' : 'application/json',
-          'Authorization': 'Bearer ' + await _token,
-        }
-        
-        );
+    final response = await http
+        .get(Uri.parse('http://10.0.2.2:8000/api/get-ijin'), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + await _token,
+    });
 
     if (response.statusCode == 200) {
       final data = getIjinModelFromJson(response.body);
@@ -57,7 +54,7 @@ class _IjinTabState extends State<IjinTab> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/img/datanotfound.png',width: 300),
+                  Image.asset('assets/img/datanotfound.png', width: 300),
                   SizedBox(height: 16),
                   Text(
                     "Belum ada data ijin",
@@ -76,6 +73,7 @@ class _IjinTabState extends State<IjinTab> {
                 final ijin = snapshot.data![index];
                 return Card(
                   elevation: 2,
+                  color: getCardColor(ijin.flg),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -86,14 +84,21 @@ class _IjinTabState extends State<IjinTab> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         ),
                         SizedBox(height: 8),
-                        Text(
-                          'Keterangan: ${ijin.keterangan}',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Keterangan: ${ijin.keterangan}',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            getIcon(ijin.flg),
+                          ],
                         ),
                       ],
                     ),
@@ -105,5 +110,30 @@ class _IjinTabState extends State<IjinTab> {
         },
       ),
     );
+  }
+}
+Color getCardColor(String flg) {
+  switch (flg) {
+    case 'A':
+      return Colors.green;
+    case 'P':
+      return Colors.yellow.shade800;
+    case 'R':
+      return Colors.red;
+    default:
+      return Colors.white; // Default color
+  }
+}
+
+Icon getIcon(String flg) {
+  switch (flg) {
+    case 'A':
+      return Icon(Icons.check_circle, color: Colors.white);
+    case 'P':
+      return Icon(Icons.pending, color: Colors.white);
+    case 'R':
+      return Icon(Icons.close, color: Colors.white);
+    default:
+      return Icon(Icons.error, color: Colors.white); // Default icon
   }
 }

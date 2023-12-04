@@ -28,19 +28,40 @@ class _SakitPageState extends State<SakitPage> {
     });
   }
 
-    DateTime date = DateTime.now();
+  DateTime date = DateTime.now();
   void selectDatePicker(TextEditingController controller) async {
     DateTime? datePicker = await showDatePicker(
       context: context,
       initialDate: date,
-      firstDate: DateTime(1999),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     );
-    if (datePicker != null && datePicker != date) {
+
+    if (datePicker != null &&
+        datePicker.isBefore(DateTime.now().add(Duration(days: 1)))) {
       setState(() {
         date = datePicker;
         controller.text = DateFormat('yyyy-MM-dd').format(datePicker);
       });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Pilih Tanggal Valid'),
+            content: Text(
+                'Anda hanya dapat memilih tanggal hari ini atau setelahnya.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -48,27 +69,25 @@ class _SakitPageState extends State<SakitPage> {
     final apiUrl = 'http://10.0.2.2:8000/api/sakit-store';
     final token = await _token;
     print(token);
-    
+
     final sakitData = {
       "tanggal": DateFormat('yyyy-MM-dd')
           .format(DateTime.parse(tanggalController.text)),
       "keterangan": keteranganController.text
-    };  
+    };
 
-    final response = await myHttp.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token', 
-      },
-      body: sakitData
-    );
+    final response = await myHttp.post(Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: sakitData);
 
     print(response.body);
 
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      if(responseData['success']) {
+      if (responseData['success']) {
         print('Sakit berhasil ditambahkan');
         print(response.body);
         Navigator.pop(context);
@@ -85,7 +104,6 @@ class _SakitPageState extends State<SakitPage> {
       print('Gagal terhubung ke API');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +183,7 @@ class _SakitPageState extends State<SakitPage> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed:
-              saveSakit,
+              onPressed: saveSakit,
               child: Text('Submit'),
             ),
           ],

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:absen_app/config/app_color.dart';
 import 'package:absen_app/model/GetPengumumanModel.dart';
 import 'package:absen_app/model/GetPresensi.dart';
+import 'package:absen_app/page/menu_page/PengumuanPage.dart';
 import 'package:absen_app/page/tab/PresensiTab.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     };
 
     var response = await myHttp.get(
-      Uri.parse('http://10.0.2.2:8000/api/get-presensi'),
+      Uri.parse('http://10.0.2.2:8000/api/get-presensi-home'),
       headers: headers,
     );
 
@@ -76,8 +77,8 @@ class _HomePageState extends State<HomePage> {
           final Map<String, dynamic> firstData = data.first;
           final bool isHariIni = firstData["is_hari_ini"] as bool;
           if (isHariIni) {
-            masuk = firstData["masuk"]; 
-            keluar = firstData["pulang"] ?? ''; 
+            masuk = firstData["masuk"];
+            keluar = firstData["pulang"] ?? '';
             print('Waktu masuk: $masuk');
             print('Waktu keluar: $keluar');
           }
@@ -122,8 +123,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
-    _timer
-        ?.cancel(); 
+    _timer?.cancel();
     _presensiBloc.dispose();
   }
 
@@ -380,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 100, //spasi kiri
+                            left: 160, //spasi kiri
                             right: 2, //spasi kanan
                             bottom: 9, //spasi bawah
                             top: 3, //spasi atas
@@ -388,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           child: Text(
-                            'Semua',
+                            '',
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 15,
@@ -482,7 +482,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-              const Column(
+              Column(
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(top: 30),
@@ -493,12 +493,24 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.all(8.0),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Pengumuman',
-                              style: TextStyle(
+                            child: GestureDetector(
+                              onTap: () {
+                                // Pindah ke halaman pengumuman
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PengumumanPage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Pengumuman',
+                                style: TextStyle(
                                   color: AppColors.font,
                                   fontSize: 22,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -510,7 +522,16 @@ class _HomePageState extends State<HomePage> {
                             top: 3, //spasi atas
                           ),
                         ),
-                        InkWell(
+                        GestureDetector(
+                          onTap: () {
+                            // Pindah ke halaman semua pengumuman
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PengumumanPage(),
+                              ),
+                            );
+                          },
                           child: Text(
                             'Semua',
                             style: TextStyle(
