@@ -53,7 +53,6 @@ class _PresensiTabState extends State<PresensiTab> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Datum>>(
@@ -64,65 +63,110 @@ class _PresensiTabState extends State<PresensiTab> {
             padding: const EdgeInsets.all(5.0),
             child: ListView.builder(
               itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) => Card(
-                elevation: 1, // Tambahkan efek shadow pada card
-                margin: EdgeInsets.symmetric(vertical: 8),
-                child: ListTile(
-                  contentPadding: EdgeInsets.all(16),
-                  leading: Text(
-                    snapshot.data![index].tanggal,
-                    style: TextStyle(
-                      fontSize: 18, // Ukuran sedikit diperbesar
-                      fontWeight: FontWeight.bold,
+              itemBuilder: (context, index) {
+                // Mendapatkan nilai flg untuk indeks saat ini
+                String flg = snapshot.data![index].flg;
+
+                // Menentukan warna berdasarkan nilai flg
+                Color cardColor = Colors.white; // Default color
+                if (flg == 'P') {
+                  cardColor = Colors.white;
+                } else if (flg == 'S') {
+                  cardColor = Colors.yellow;
+                } else if (flg == 'I') {
+                  cardColor = Colors.blue;
+                } else if (flg == 'N') {
+                  cardColor = Colors.red;
+                }
+
+                // Membangun Card dengan warna yang telah ditentukan
+                return Card(
+                  elevation: 1,
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  color: cardColor,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(16),
+                    leading: Text(
+                      snapshot.data![index].tanggal,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                snapshot.data![index].masuk,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Text(
-                                "Masuk",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ],
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (flg != 'I' &&
+                                    flg != 'S' &&
+                                    flg !=
+                                        'N') // Hanya tampilkan jika flg bukan 'I' atau 'S'
+                                  Text(
+                                    snapshot.data![index].masuk ?? '',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  if (flg != 'I' &&
+                                    flg != 'S' &&
+                                    flg !=
+                                        'N') // Hanya tampilkan jika flg bukan 'I' atau 'S'
+                                  Text(
+                                    'Masuk',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                snapshot.data![index].pulang != null
-                                    ? snapshot.data![index].pulang
-                                    : '-',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Text(
-                                "Pulang",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ],
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (flg != 'I' &&
+                                    flg != 'S' &&
+                                    flg !=
+                                        'N') // Hanya tampilkan jika flg bukan 'I' atau 'S'
+                                  Text(
+                                    snapshot.data![index].pulang ?? '',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                if (flg != 'I' &&
+                                    flg != 'S' &&
+                                    flg !=
+                                        'N') // Hanya tampilkan jika flg bukan 'I' atau 'S'
+                                  Text(
+                                    'Pulang',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        // Menambahkan teks khusus untuk flg 'I' atau 'S'
+                        if (flg == 'I')
+                          Text(
+                            "Ijin",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        if (flg == 'S')
+                          Text(
+                            "Sakit",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                      ],
+                    ),
+                    // ... Bagian lain dari widget seperti yang telah Anda definisikan sebelumnya
                   ),
-                ),
-              ),
+                );
+              },
             ),
           );
         } else if (snapshot.hasError) {

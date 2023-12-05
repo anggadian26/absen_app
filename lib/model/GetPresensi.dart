@@ -35,11 +35,12 @@ class GetPresensi {
 class Datum {
     int id;
     int userId;
-    String latitude;
-    String longitude;
+    String? latitude;
+    String? longitude;
     String tanggal;
-    String masuk;
-    dynamic pulang;
+    String? masuk;
+    String? pulang;
+    String flg;
     DateTime createdAt;
     DateTime updatedAt;
     bool isHariIni;
@@ -53,6 +54,7 @@ class Datum {
         required this.tanggal,
         required this.masuk,
         required this.pulang,
+        required this.flg,
         required this.createdAt,
         required this.updatedAt,
         required this.isHariIni,
@@ -66,7 +68,8 @@ class Datum {
         longitude: json["longitude"],
         tanggal: json["tanggal"],
         masuk: json["masuk"],
-        pulang: json["pulang"] ?? null,
+        pulang: json["pulang"],
+        flg: json["flg"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         isHariIni: json["is_hari_ini"],
@@ -81,6 +84,7 @@ class Datum {
         "tanggal": tanggal,
         "masuk": masuk,
         "pulang": pulang,
+        "flg": flg,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "is_hari_ini": isHariIni,

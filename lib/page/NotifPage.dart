@@ -44,7 +44,7 @@ class _NotifPageState extends State<NotifPage> {
                   ),
                   child: Center(
                     child: Text(
-                      "IJIN",
+                      "IJIN / CUTI",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,

@@ -442,7 +442,21 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       const Spacer(), // Spacer untuk menggeser ke sebelah kiri
                                       Text(
-                                        snapshot.data![index].masuk,
+                                        snapshot.data![index].flg == 'N' &&
+                                                (snapshot.data![index].masuk ==
+                                                        null ||
+                                                    snapshot.data![index]
+                                                            .pulang ==
+                                                        null)
+                                            ? '-'
+                                            : snapshot.data![index].flg == 'I'
+                                                ? 'Ijin'
+                                                : snapshot.data![index].flg ==
+                                                        'S'
+                                                    ? ''
+                                                    : snapshot.data![index]
+                                                            .masuk ??
+                                                        '',
                                         style: const TextStyle(
                                           fontSize: 14,
                                           color: AppColors.primary,
@@ -453,15 +467,22 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 2),
                                       ),
-                                      Text('-'),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 2),
-                                      ),
                                       Text(
-                                        snapshot.data![index].pulang != null
-                                            ? snapshot.data![index].pulang
-                                            : '',
+                                        snapshot.data![index].flg == 'N' &&
+                                                (snapshot.data![index].masuk ==
+                                                        null ||
+                                                    snapshot.data![index]
+                                                            .pulang ==
+                                                        null)
+                                            ? '-'
+                                            : snapshot.data![index].flg == 'I'
+                                                ? 'Ijin'
+                                                : snapshot.data![index].flg ==
+                                                        'S'
+                                                    ? 'Sakit'
+                                                    : snapshot.data![index]
+                                                            .pulang ??
+                                                        '',
                                         style: const TextStyle(
                                           fontSize: 14,
                                           color: AppColors.primary,

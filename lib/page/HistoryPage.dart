@@ -33,7 +33,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 unselectedLabelColor: Colors.grey,
                 tabs: [
                   Tab(text: "Presensi" ),
-                  Tab(text: "Ijin"),
+                  Tab(text: "Ijin / Cuti"),
                   Tab(text: "Sakit"),
                 ],
               ),
